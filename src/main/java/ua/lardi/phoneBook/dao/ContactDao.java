@@ -1,7 +1,7 @@
-package ua.goit.phoneBook.dao;
+package ua.lardi.phoneBook.dao;
 
-import ua.goit.phoneBook.model.Contact;
-import ua.goit.phoneBook.model.User;
+import ua.lardi.phoneBook.model.Contact;
+import ua.lardi.phoneBook.model.User;
 
 import java.util.List;
 

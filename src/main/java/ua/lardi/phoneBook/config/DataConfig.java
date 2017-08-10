@@ -1,4 +1,4 @@
-package ua.goit.phoneBook.config;
+package ua.lardi.phoneBook.config;
 
 
 import org.apache.commons.dbcp2.BasicDataSource;

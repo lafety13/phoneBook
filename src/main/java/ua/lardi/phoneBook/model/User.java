@@ -1,4 +1,4 @@
-package ua.goit.phoneBook.model;
+package ua.lardi.phoneBook.model;
 
 
 import java.io.Serializable;
