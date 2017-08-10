@@ -21,15 +21,21 @@ public class WebApplication {
     private static void setUp() {
         String path = System.getProperty("lardi.conf");
 
+        if (path == null) {
+            System.setProperty("GENERATED_KEY_NAME", "id");
+            return;
+        }
+
+        //reading properties from config file
         Properties properties = new Properties();
         InputStream stream = null;
         try {
             stream = new FileInputStream(path);
             properties.load(stream);
         } catch (FileNotFoundException e) {
-            //logger
+
         } catch (IOException e) {
-            //logger
+
         }
 
         //setting config properties as system variables

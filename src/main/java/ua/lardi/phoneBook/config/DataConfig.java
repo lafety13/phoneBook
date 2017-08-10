@@ -1,5 +1,7 @@
 package ua.goit.phoneBook.config;
 
+
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -9,7 +11,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableTransactionManagement
-public class DatabaseConfig {
+public class DataConfig {
 
   @Bean
   @Profile("mysql")
@@ -23,6 +25,12 @@ public class DatabaseConfig {
     dataSource.setMaxTotal(70);
     dataSource.setMaxIdle(30);
     return dataSource;
+  }
+
+  @Bean
+  @Profile("json")
+  public DataSource emptyDataSource() {
+    return new BasicDataSource();
   }
 
 }
