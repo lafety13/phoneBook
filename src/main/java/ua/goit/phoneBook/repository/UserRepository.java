@@ -1,4 +1,4 @@
-package com.hellokoding.auth.repository;
+package ua.goit.phoneBook.repository;
 
 import com.hellokoding.auth.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
