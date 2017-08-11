@@ -5,12 +5,10 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
 @Configuration
-@EnableTransactionManagement
 public class DataConfig {
 
   @Bean
@@ -28,7 +26,7 @@ public class DataConfig {
   }
 
   @Bean
-  @Profile("json")
+  @Profile("default")
   public DataSource emptyDataSource() {
     return new BasicDataSource();
   }

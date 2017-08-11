@@ -15,7 +15,7 @@ import java.util.HashMap;
  * @author Vadim Kozak
  */
 @Configuration
-@Profile("json")
+@Profile("default")
 public class JacksonDaoConfig {
 
     @Bean
