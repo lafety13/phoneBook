@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-@Profile("json")
+@Profile("default")
 public class ContactJacksonDao extends JacksonDaoSupport implements ContactDao {
     @Override
     public List<Contact> findAllContactsByUser(User user) {

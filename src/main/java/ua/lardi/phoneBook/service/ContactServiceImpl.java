@@ -14,6 +14,7 @@ public class ContactServiceImpl implements ContactService {
     @Autowired
     private ContactDao contactDao;
 
+
     @Override
     public Contact save(Contact contact) {
         return contactDao.save(contact);
@@ -32,5 +33,15 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public void delete(long id) {
         contactDao.delete(id);
+    }
+
+    @Override
+    public void update(Contact object) {
+
+    }
+
+    @Override
+    public List<Contact> findAll() {
+        return null;
     }
 }

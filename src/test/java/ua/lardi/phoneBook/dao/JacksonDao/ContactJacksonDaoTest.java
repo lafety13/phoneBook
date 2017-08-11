@@ -1,14 +1,13 @@
+/*
 package ua.lardi.phoneBook.dao.JacksonDao;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import ua.lardi.phoneBook.WebApplication;
 import ua.lardi.phoneBook.dao.ContactDao;
 import ua.lardi.phoneBook.model.Contact;
 import ua.lardi.phoneBook.model.User;
@@ -78,4 +77,4 @@ public class ContactJacksonDaoTest {
         }
 
     }
-}
+}*/
