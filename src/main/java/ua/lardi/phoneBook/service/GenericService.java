@@ -3,7 +3,7 @@ package ua.lardi.phoneBook.service;
 import java.util.List;
 
 public interface GenericService<T> {
-    T save(T object);
+    void save(T object);
 
     T findById(long id);
 

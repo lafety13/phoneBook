@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-@Profile("default")
+@Profile("mysql")
 public class ContactJacksonDao extends JacksonDaoSupport implements ContactDao {
     @Override
     public List<Contact> findAllContactsByUser(User user) {
@@ -19,7 +19,7 @@ public class ContactJacksonDao extends JacksonDaoSupport implements ContactDao {
     }
 
     @Override
-    public Contact save(Contact contact) {
+    public void save(Contact contact) {
         JsonPhoneBookModel jsonPhoneBookModel = readData();
         User user = jsonPhoneBookModel.getUsers().get(contact.getUser().getLogin());
         if (user.getContacts() == null) {
@@ -32,8 +32,6 @@ public class ContactJacksonDao extends JacksonDaoSupport implements ContactDao {
         jsonPhoneBookModel.setContactCount(contactId);
         contactList.add(contact);
         writeData(jsonPhoneBookModel);
-
-        return contact;
     }
 
     @Override

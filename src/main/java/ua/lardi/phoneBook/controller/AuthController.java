@@ -38,6 +38,7 @@ public class AuthController {
             return "registration";
         }
         userService.save(userForm);
-        return "redirect:/home";
+        model.addAttribute("message", "Вы успешно зарегестрировались.");
+        return "forward:/signin";
     }
 }

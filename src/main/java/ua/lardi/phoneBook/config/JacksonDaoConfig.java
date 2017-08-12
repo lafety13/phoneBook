@@ -10,12 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
-
-/**
- * @author Vadim Kozak
- */
 @Configuration
-@Profile("default")
+@Profile("mysql")
 public class JacksonDaoConfig {
 
     @Bean

@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author Vadim Kozak
  */
 public class Contact implements Serializable {
-    private long id;
+    private Long id;
     private String lastName;
     private String firstName;
     private String middleName;
@@ -19,85 +19,96 @@ public class Contact implements Serializable {
     @JsonIgnore
     private User user;
 
-    public long getId() {
+    public Contact() {
+    }
+
+    public Contact(Long id, String lastName, String firstName, String middleName,
+                   String mobilePhone, String homePhone, String address, String email, User user) {
+        this.id = id;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.mobilePhone = mobilePhone;
+        this.homePhone = homePhone;
+        this.address = address;
+        this.email = email;
+        this.user = user;
+    }
+
+    public boolean isNew() {
+        return (this.id == null);
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public Contact setId(long id) {
+    public void setId(Long id) {
         this.id = id;
-        return this;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public Contact setLastName(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
-        return this;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public Contact setFirstName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
-        return this;
     }
 
     public String getMiddleName() {
         return middleName;
     }
 
-    public Contact setMiddleName(String middleName) {
+    public void setMiddleName(String middleName) {
         this.middleName = middleName;
-        return this;
     }
 
     public String getMobilePhone() {
         return mobilePhone;
     }
 
-    public Contact setMobilePhone(String mobilePhone) {
+    public void setMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone;
-        return this;
     }
 
     public String getHomePhone() {
         return homePhone;
     }
 
-    public Contact setHomePhone(String homePhone) {
+    public void setHomePhone(String homePhone) {
         this.homePhone = homePhone;
-        return this;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public Contact setAddress(String address) {
+    public void setAddress(String address) {
         this.address = address;
-        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public Contact setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
-        return this;
     }
 
     public User getUser() {
         return user;
     }
 
-    public Contact setUser(User user) {
+    public void setUser(User user) {
         this.user = user;
-        return this;
     }
 
     @Override

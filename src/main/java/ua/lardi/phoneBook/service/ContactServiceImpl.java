@@ -10,14 +10,15 @@ import java.util.List;
 
 @Service
 public class ContactServiceImpl implements ContactService {
-
     @Autowired
     private ContactDao contactDao;
 
-
     @Override
-    public Contact save(Contact contact) {
-        return contactDao.save(contact);
+    public void save(Contact contact) {
+        if (contact.isNew()) {
+            contactDao.save(contact);
+        }
+        contactDao.update(contact);
     }
 
     @Override
@@ -36,12 +37,12 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public void update(Contact object) {
-
+    public void update(Contact contact) {
+        contactDao.update(contact);
     }
 
     @Override
     public List<Contact> findAll() {
-        return null;
+        return contactDao.findAll();
     }
 }

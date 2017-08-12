@@ -1,62 +1,86 @@
 package ua.lardi.phoneBook.model;
 
 
+import org.springframework.validation.annotation.Validated;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author Vadim Kozak
  */
+@Validated
 public class User implements Serializable {
-    private long id;
+    private Long id;
     private String login;
     private String password;
+    private String confirmPassword;
     private String name;
     private List<Contact> contacts;
 
-    public long getId() {
+    public User() {
+    }
+
+    public User(long id, String login, String password,
+                String confirmPassword, String name, List<Contact> contacts) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.confirmPassword = confirmPassword;
+        this.name = name;
+        this.contacts = contacts;
+    }
+
+    public boolean isNew() {
+        return (this.id == null);
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public User setId(long id) {
+    public void setId(Long id) {
         this.id = id;
-        return this;
     }
 
     public String getLogin() {
         return login;
     }
 
-    public User setLogin(String login) {
+    public void setLogin(String login) {
         this.login = login;
-        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public User setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
-        return this;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     public String getName() {
         return name;
     }
 
-    public User setName(String name) {
+    public void setName(String name) {
         this.name = name;
-        return this;
     }
 
     public List<Contact> getContacts() {
         return contacts;
     }
 
-    public User setContacts(List<Contact> contacts) {
+    public void setContacts(List<Contact> contacts) {
         this.contacts = contacts;
-        return this;
     }
 
     @Override

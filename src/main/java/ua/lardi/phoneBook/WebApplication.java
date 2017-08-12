@@ -12,7 +12,7 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Properties;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "ua.lardi.phoneBook")
 public class WebApplication {
     public static void main(String[] args) {
         setUp();

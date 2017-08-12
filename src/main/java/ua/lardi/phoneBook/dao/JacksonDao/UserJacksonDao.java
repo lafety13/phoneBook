@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Repository
-@Profile("default")
+@Profile("mysql")
 public class UserJacksonDao extends JacksonDaoSupport implements UserDao {
 
     @Override
@@ -20,7 +20,7 @@ public class UserJacksonDao extends JacksonDaoSupport implements UserDao {
     }
 
     @Override
-    public User save(User user) {
+    public void save(User user) {
         JsonPhoneBookModel jsonPhoneBookModel = readData();
         long userId = jsonPhoneBookModel.getUserCount() + 1;
         user.setId(userId);
@@ -31,8 +31,6 @@ public class UserJacksonDao extends JacksonDaoSupport implements UserDao {
         }
         jsonPhoneBookModel.getUsers().put(user.getLogin(), user);
         writeData(jsonPhoneBookModel);
-
-        return user;
     }
 
     @Override

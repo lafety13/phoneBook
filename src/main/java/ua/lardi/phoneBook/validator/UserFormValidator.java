@@ -8,7 +8,6 @@ import org.springframework.validation.Validator;
 import ua.lardi.phoneBook.model.User;
 import ua.lardi.phoneBook.service.UserService;
 
-//http://docs.spring.io/spring/docs/current/spring-framework-reference/html/validation.html#validation-mvc-configuring
 @Component
 public class UserFormValidator implements Validator {
 
