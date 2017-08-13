@@ -28,13 +28,17 @@ public class MainController {
     }
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public ModelAndView home(Principal principal) {
+    public ModelAndView home(Principal principal, Model model) {
         User currentUser = userService.findUserByLogin(principal.getName());
         List<Contact> userContacts = contactService.findAllContactsByUser(currentUser);
         ModelAndView modelAndView = new ModelAndView("home");
         modelAndView.addObject("contacts", userContacts);
         modelAndView.addObject("username", currentUser.getName());
+        if (!model.containsAttribute("contactForm")) {
+            modelAndView.addObject("contactForm", new Contact());
+        }
 
-        return new ModelAndView("home");
+        return modelAndView;
     }
+
 }

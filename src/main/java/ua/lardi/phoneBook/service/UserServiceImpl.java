@@ -20,8 +20,9 @@ public class UserServiceImpl implements UserService {
         if (user.isNew()) {
             user.setPassword(shaPasswordEncoder.encodePassword(user.getPassword(), null));
             userDao.save(user);
+        } else {
+            userDao.update(user);
         }
-        userDao.update(user);
     }
 
     @Override

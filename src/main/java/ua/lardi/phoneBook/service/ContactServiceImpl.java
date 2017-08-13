@@ -17,8 +17,9 @@ public class ContactServiceImpl implements ContactService {
     public void save(Contact contact) {
         if (contact.isNew()) {
             contactDao.save(contact);
+        } else {
+            contactDao.update(contact);
         }
-        contactDao.update(contact);
     }
 
     @Override

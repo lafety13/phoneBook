@@ -53,7 +53,7 @@ public class ContactJDBCDaoImpl extends AbstractJDBCDao implements ContactDao {
 
     @Override
     public void delete(long id) {
-        final String sql = "DELETE FROM contact WHERE id = ";
+        final String sql = "DELETE FROM contact WHERE id =";
         getJdbcTemplate().update(sql + id);
     }
 

@@ -1,12 +1,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <html>
 <head>
     <title>Контакты</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
     <script src="../../resources/js/jquery-2.2.3.min.js" type="text/javascript"></script>
     <script src="../../resources/js/bootstrap.min.js" type="text/javascript"></script>
     <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../resources/css/css.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" type="text/css"
           href="https://cdn.datatables.net/t/bs/dt-1.10.11,se-1.1.2/datatables.min.css"/>
     <script type="text/javascript" src="https://cdn.datatables.net/t/bs/dt-1.10.11,se-1.1.2/datatables.min.js"></script>
@@ -14,14 +18,39 @@
 </head>
 <body>
 
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><c:out value="${username}"/></a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-right" id="navbar">
+            <ul class="nav navbar-nav">
+                <li> <a href="/logout">Sign out</a></li>
+            </ul>
+        </div>
 
-<!-- Navigable -->
-<jsp:include page="/WEB-INF/views/menu.jsp"/>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<hr style="margin-bottom: 150px">
 
 <div class="container">
 
     <div class="row">
+        <a class="btn btn-success btn-sm" id="newcontactbutton" style="margin: 20px 0 50px 20px; float: right">Add a new contact</a>
+
         <div class="col-sm-5" style="margin-top: 20px">
+
             <table class="table table-striped table-bordered" id="contacttable">
                 <thead>
                 <tr>
@@ -40,82 +69,76 @@
                 </c:forEach>
                 </tbody>
             </table>
+
         </div>
+
+
         <div class="col-sm-5">
-            <a class="btn btn-success col-sm-4" id="newcontactbutton" style="margin: 20px 0 0 20px">Добавить контакт</a>
-            <div class="col-sm-12 autowindow" style="display: none" id="contactformwindow">
-                <form class="form-horizontal" id="contactform">
-                    <h3 id="formlabel"></h3>
-                    <div class="alert alert-success" role="alert" style="display: none" id="success">
-                        Контакт успешно сохранен
+            <div class="col-sm-12 autowindow" style="" id="contactformwindow">
+                <h1 id="formName">Add</h1>
+                <c:url var="addAction" value="/contact/save"/>
+                <form:form method="POST" id="contactform" action="${addAction}" modelAttribute="contactForm">
+
+                    <div class="form-group">
+                        <label for="id">Id</label>
+                        <form:input path="id" class="form-control" id="id"  placeholder="id" readonly="true" />
+                        <form:errors path="id" cssClass="error" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName">Last name</label>
+                        <form:input path="lastName" class="form-control" id="lastName"  placeholder="lastName" />
+                        <form:errors path="lastName" cssClass="error" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="firstName">First name</label>
+                        <form:input path="firstName" id="firstName" class="form-control" placeholder="firstName" />
+                        <form:errors path="firstName" cssClass="error" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="middleName">Middle name</label>
+                        <form:input path="middleName" class="form-control" id="middleName"  placeholder="middleName" />
+                        <form:errors path="middleName" cssClass="error" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mobilePhone">Mobile number</label>
+                        <form:input path="mobilePhone" class="form-control" id="mobilePhone"  placeholder="mobilePhone" />
+                        <form:errors path="mobilePhone" cssClass="error" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="homePhone">Home number</label>
+                        <form:input path="homePhone" class="form-control" id="homePhone"  placeholder="homePhone" />
+                        <form:errors path="homePhone" cssClass="error" />
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-4">
-                            <label class="control-label">Фамилия</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <input name="lastname" class="form-control" id="lastname">
-                        </div>
+                        <label for="address">Address</label>
+                        <form:input path="address" class="form-control" id="address"  placeholder="address" />
+                        <form:errors path="address" cssClass="error" />
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-4">
-                            <label class="control-label">Имя</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <input name="firstname" class="form-control" id="firstname">
-                        </div>
+                        <label for="email">Email</label>
+                        <form:input path="email" class="form-control" id="email"  placeholder="email" />
+                        <form:errors path="email" cssClass="error" />
                     </div>
+
                     <div class="form-group">
-                        <div class="col-sm-4">
-                            <label class="control-label">Отчество</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <input name="middlename" class="form-control" id="middlename">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-4">
-                            <label class="control-label">Моб. телефон</label>
-                        </div>
-                        <div class="col-sm-5">
-                            <input name="mobilephone" class="form-control" id="mobilephone">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-4">
-                            <label class="control-label">Дом. телефон</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <input name="homephone" class="form-control" id="homephone">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-4">
-                            <label class="control-label">Адрес</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <input name="address" class="form-control" id="address">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-4">
-                            <label class="control-label">Email</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <input name="email" class="form-control" id="email">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-6">
-                            <a class="btn btn-danger col-sm-12" id="deletecontactbutton">Удалить</a>
-                        </div>
+
                         <div class="col-sm-6">
                             <input name="submit" class="btn btn-primary col-sm-12" type="submit" id="submitbutton"
-                                   value="Сохранить">
+                                   value="Save">
                         </div>
+
+                        <div class="col-sm-6">
+                            <a class="btn btn-danger col-sm-12" style="display: none" id="deletecontactbutton">Delete</a>
+                        </div>
+
                     </div>
-                    <input type="hidden" name="id" id="id">
-                </form>
+                </form:form>
+
             </div>
         </div>
     </div>

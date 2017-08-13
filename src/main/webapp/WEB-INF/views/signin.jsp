@@ -3,12 +3,36 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Авторизация</title>
+    <title>Sign In</title>
     <script src="../../resources/js/jquery-2.2.3.min.js" type="text/javascript"></script>
     <script src="../../resources/js/bootstrap.min.js" type="text/javascript"></script>
     <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-right" id="navbar">
+
+        </div>
+
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<hr style="margin-bottom: 150px">
+
 <div class="container">
     <div class="row">
         <div class="col-sm-4 autowindow">

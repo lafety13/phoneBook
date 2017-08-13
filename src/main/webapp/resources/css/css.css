@@ -1,3 +1,10 @@
 .error {
     color: red;
 }
+.autowindow {
+    margin: 20px 0 0 20px;
+}
+
+#contacttable > tbody > tr:hover {
+    cursor: hand;
+}

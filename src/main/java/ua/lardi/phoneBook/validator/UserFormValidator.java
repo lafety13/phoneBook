@@ -8,9 +8,14 @@ import org.springframework.validation.Validator;
 import ua.lardi.phoneBook.model.User;
 import ua.lardi.phoneBook.service.UserService;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Component
 public class UserFormValidator implements Validator {
+	private static final String LOGIN_PATTERN = "^[A-Za-z0-9]{3,}$";
 
+	@Autowired
 	private UserService userService;
 
 	@Override
@@ -22,22 +27,25 @@ public class UserFormValidator implements Validator {
 	public void validate(Object o, Errors errors) {
 		User user = (User) o;
 
+
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login", "Required");
-		if (user.getLogin().length() <= 3 || user.getLogin().length() > 32) {
+		if (user.getLogin().length() < 3 || user.getLogin().length() > 32) {
 			errors.rejectValue("login", "Size.userForm.login");
 		}
-
+		if (!validate(LOGIN_PATTERN, user.getLogin())) {
+			errors.rejectValue("login", "Size.userForm.ValidLogin");
+		}
 		if (userService.findUserByLogin(user.getLogin()) != null) {
 			errors.rejectValue("login", "Duplicate.userForm.login");
 		}
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "Required");
-		if (user.getLogin().length() <= 5 || user.getLogin().length() > 32) {
+		if (user.getLogin().length() < 5 || user.getLogin().length() > 32) {
 			errors.rejectValue("name", "Size.userForm.username");
 		}
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "Required");
-		if (user.getPassword().length() <= 5 || user.getPassword().length() > 32) {
+		if (user.getPassword().length() < 5 || user.getPassword().length() > 32) {
 			errors.rejectValue("password", "Size.userForm.password");
 		}
 
@@ -45,8 +53,10 @@ public class UserFormValidator implements Validator {
 			errors.rejectValue("confirmPassword", "Different.userForm.password");
 		}
 	}
-	@Autowired
-	public void setUserService(UserService userService) {
-		this.userService = userService;
+
+	private boolean validate(String pattern, String value) {
+		Pattern p = Pattern.compile(pattern);
+		Matcher m = p.matcher(value);
+		return m.matches();
 	}
 }
