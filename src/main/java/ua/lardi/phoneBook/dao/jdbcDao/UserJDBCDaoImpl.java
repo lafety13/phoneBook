@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import ua.lardi.phoneBook.dao.PersistenceException;
 import ua.lardi.phoneBook.dao.UserDao;
 import ua.lardi.phoneBook.model.User;
 
@@ -24,7 +25,7 @@ public class UserJDBCDaoImpl extends AbstractJDBCDao implements UserDao {
     private RowMapper<User> userRowMapper;
 
     @Override
-    public void save(User object) {
+    public void save(User object) throws PersistenceException {
         KeyHolder holder = new GeneratedKeyHolder();
         final String sql = "INSERT INTO users (login, password, name) VALUES (?, ?, ?)";
         getJdbcTemplate().update(connection -> {
@@ -37,13 +38,13 @@ public class UserJDBCDaoImpl extends AbstractJDBCDao implements UserDao {
     }
 
     @Override
-    public User findById(long id) {
+    public User findById(long id) throws PersistenceException {
         final String sql = "SELECT * FROM users WHERE id = ?";
         return getJdbcTemplate().queryForObject(sql, new Object[]{id}, userRowMapper);
     }
 
     @Override
-    public void update(User object) {
+    public void update(User object) throws PersistenceException {
         final String sql = "UPDATE users SET login = ?, password = ?, name = ? WHERE id = ?";
         getJdbcTemplate().update(connection -> {
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -56,19 +57,19 @@ public class UserJDBCDaoImpl extends AbstractJDBCDao implements UserDao {
     }
 
     @Override
-    public void delete(long id) {
+    public void delete(long id) throws PersistenceException {
         final String sql = "DELETE FROM users WHERE id = ";
         getJdbcTemplate().update(sql + id);
     }
 
     @Override
-    public List<User> findAll() {
+    public List<User> findAll() throws PersistenceException {
         final String sql = "SELECT * FROM users";
         return getJdbcTemplate().query(sql, userRowMapper);
     }
 
     @Override
-    public User findByLogin(String login) {
+    public User findByLogin(String login) throws PersistenceException {
         final String sql = "SELECT * FROM users WHERE login = ?";
         try {
             return getJdbcTemplate().queryForObject(sql, new Object[]{login}, userRowMapper);

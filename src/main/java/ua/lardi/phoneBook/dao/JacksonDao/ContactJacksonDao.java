@@ -3,6 +3,7 @@ package ua.lardi.phoneBook.dao.JacksonDao;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import ua.lardi.phoneBook.dao.ContactDao;
+import ua.lardi.phoneBook.dao.PersistenceException;
 import ua.lardi.phoneBook.model.Contact;
 import ua.lardi.phoneBook.model.User;
 
@@ -19,7 +20,7 @@ public class ContactJacksonDao extends JacksonDaoSupport implements ContactDao {
     }
 
     @Override
-    public void save(Contact contact) {
+    public void save(Contact contact) throws PersistenceException {
         JsonPhoneBookModel jsonPhoneBookModel = readData();
         User user = jsonPhoneBookModel.getUsers().get(contact.getUser().getLogin());
         if (user.getContacts() == null) {

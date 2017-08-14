@@ -43,11 +43,6 @@ public class ContactFormValidator implements Validator {
             errors.rejectValue("middleName", "Size.userForm.username");
         }
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "middleName", "Required");
-        if (contact.getAddress().length() < 3 || contact.getAddress().length() > 32) {
-            errors.rejectValue("middleName", "Size.contactForm.Adress");
-        }
-
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "mobilePhone", "Required");
         if (!validate(MOBILE_PATTERN, contact.getMobilePhone())) {
             errors.rejectValue("mobilePhone", "Size.contactForm.PhoneNumber");
@@ -61,6 +56,9 @@ public class ContactFormValidator implements Validator {
             errors.rejectValue("email", "Size.contactForm.Email");
         }
 
+        if (!"".equals(contact.getAddress()) && (contact.getAddress().length() < 3 || contact.getAddress().length() > 32)) {
+            errors.rejectValue("address", "Size.contactForm.Adress");
+        }
     }
 
     private boolean validate(String pattern, String value) {

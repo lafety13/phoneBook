@@ -4,13 +4,13 @@ import java.util.List;
 
 public interface GenericDao<T> {
 
-    void save(T object);
+    void save(T object) throws PersistenceException;
 
-    T findById(long id);
+    T findById(long id) throws PersistenceException;;
 
-    void update(T object);
+    void update(T object) throws PersistenceException;;
 
-    void delete(long id);
+    void delete(long id) throws PersistenceException;;
 
-    List<T> findAll();
+    List<T> findAll() throws PersistenceException;
 }

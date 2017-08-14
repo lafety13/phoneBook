@@ -7,6 +7,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import ua.lardi.phoneBook.dao.ContactDao;
+import ua.lardi.phoneBook.dao.PersistenceException;
 import ua.lardi.phoneBook.model.Contact;
 import ua.lardi.phoneBook.model.User;
 
@@ -20,12 +21,10 @@ import java.util.List;
 @Repository
 @Profile("default")
 public class ContactJDBCDaoImpl extends AbstractJDBCDao implements ContactDao {
-
-    @Autowired
     private RowMapper<Contact> contactRowMapper;
 
     @Override
-    public void save(Contact object) {
+    public void save(Contact object) throws PersistenceException {
         KeyHolder holder = new GeneratedKeyHolder();
         final String sql = "INSERT INTO contact (lastname, firstname, middlename, mobilephone, " +
                 "homephone, address, email, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -35,13 +34,13 @@ public class ContactJDBCDaoImpl extends AbstractJDBCDao implements ContactDao {
     }
 
     @Override
-    public Contact findById(long id) {
+    public Contact findById(long id) throws PersistenceException {
         final String sql = "SELECT * FROM contact WHERE id = ?";
         return getJdbcTemplate().queryForObject(sql, new Object[]{id}, contactRowMapper);
     }
 
     @Override
-    public void update(Contact object) {
+    public void update(Contact object) throws PersistenceException {
         final String query = "UPDATE contact SET lastname = ?, firstname = ?, middlename = ?, " +
                 "mobilephone = ?, homephone = ?, address = ?, email = ?, user_id = ? WHERE id = ?";
         getJdbcTemplate().update(connection -> {
@@ -52,19 +51,19 @@ public class ContactJDBCDaoImpl extends AbstractJDBCDao implements ContactDao {
     }
 
     @Override
-    public void delete(long id) {
+    public void delete(long id) throws PersistenceException {
         final String sql = "DELETE FROM contact WHERE id =";
         getJdbcTemplate().update(sql + id);
     }
 
     @Override
-    public List<Contact> findAll() {
+    public List<Contact> findAll() throws PersistenceException {
         final String sql = "SELECT * FROM contact";
         return getJdbcTemplate().query(sql, contactRowMapper);
     }
 
     @Override
-    public List<Contact> findAllContactsByUser(User user) {
+    public List<Contact> findAllContactsByUser(User user) throws PersistenceException {
         final String sql = "SELECT * FROM contact WHERE user_id = ?";
         return getJdbcTemplate().query(sql, new Object[]{user.getId()}, contactRowMapper);
     }
@@ -80,5 +79,10 @@ public class ContactJDBCDaoImpl extends AbstractJDBCDao implements ContactDao {
         statement.setString(7, contact.getEmail());
         statement.setLong(8, contact.getUser().getId());
         return statement;
+    }
+
+    @Autowired
+    public void setContactRowMapper(RowMapper<Contact> contactRowMapper) {
+        this.contactRowMapper = contactRowMapper;
     }
 }

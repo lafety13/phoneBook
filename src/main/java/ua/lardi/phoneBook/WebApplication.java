@@ -1,12 +1,13 @@
 package ua.lardi.phoneBook;
 
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.AbstractEnvironment;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
@@ -14,6 +15,8 @@ import java.util.Properties;
 
 @SpringBootApplication(scanBasePackages = "ua.lardi.phoneBook")
 public class WebApplication {
+    private static final Logger LOGGER = LogManager.getLogger(WebApplication.class);
+
     public static void main(String[] args) {
         setUp();
         SpringApplication.run(WebApplication.class, args);
@@ -33,10 +36,8 @@ public class WebApplication {
         try {
             stream = new FileInputStream(path);
             properties.load(stream);
-        } catch (FileNotFoundException e) {
-
         } catch (IOException e) {
-
+            LOGGER.error(e);
         }
 
         //setting config properties as system variables

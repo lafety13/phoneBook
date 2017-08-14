@@ -1,10 +1,13 @@
 package ua.lardi.phoneBook.validator;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+import ua.lardi.phoneBook.dao.PersistenceException;
 import ua.lardi.phoneBook.model.User;
 import ua.lardi.phoneBook.service.UserService;
 
@@ -13,6 +16,7 @@ import java.util.regex.Pattern;
 
 @Component
 public class UserFormValidator implements Validator {
+	private static final Logger LOGGER = LogManager.getLogger(UserFormValidator.class);
 	private static final String LOGIN_PATTERN = "^[A-Za-z0-9]{3,}$";
 
 	@Autowired
@@ -35,8 +39,12 @@ public class UserFormValidator implements Validator {
 		if (!validate(LOGIN_PATTERN, user.getLogin())) {
 			errors.rejectValue("login", "Size.userForm.ValidLogin");
 		}
-		if (userService.findUserByLogin(user.getLogin()) != null) {
-			errors.rejectValue("login", "Duplicate.userForm.login");
+		try {
+			if (userService.findUserByLogin(user.getLogin()) != null) {
+                errors.rejectValue("login", "Duplicate.userForm.login");
+            }
+		} catch (PersistenceException e) {
+			LOGGER.error(e);
 		}
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "Required");

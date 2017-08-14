@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
     private UserDetailsService userDetailsService;
 
     @Override
@@ -39,6 +38,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public ShaPasswordEncoder shaPasswordEncoder() {
         return new ShaPasswordEncoder();
+    }
+
+    @Autowired
+    public void setUserDetailsService(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
 
     @Autowired

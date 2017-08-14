@@ -37,7 +37,6 @@
                 <li> <a href="/logout">Sign out</a></li>
             </ul>
         </div>
-
         <!-- /.navbar-collapse -->
     </div>
     <!-- /.container -->
@@ -45,12 +44,9 @@
 <hr style="margin-bottom: 150px">
 
 <div class="container">
-
     <div class="row">
         <a class="btn btn-success btn-sm" id="newcontactbutton" style="margin: 20px 0 50px 20px; float: right">Add a new contact</a>
-
         <div class="col-sm-5" style="margin-top: 20px">
-
             <table class="table table-striped table-bordered" id="contacttable">
                 <thead>
                 <tr>
@@ -69,13 +65,12 @@
                 </c:forEach>
                 </tbody>
             </table>
-
         </div>
-
 
         <div class="col-sm-5">
             <div class="col-sm-12 autowindow" style="" id="contactformwindow">
                 <h1 id="formName">Add</h1>
+
                 <c:url var="addAction" value="/contact/save"/>
                 <form:form method="POST" id="contactform" action="${addAction}" modelAttribute="contactForm">
 
@@ -126,16 +121,13 @@
                     </div>
 
                     <div class="form-group">
-
                         <div class="col-sm-6">
                             <input name="submit" class="btn btn-primary col-sm-12" type="submit" id="submitbutton"
                                    value="Save">
                         </div>
-
                         <div class="col-sm-6">
                             <a class="btn btn-danger col-sm-12" style="display: none" id="deletecontactbutton">Delete</a>
                         </div>
-
                     </div>
                 </form:form>
 

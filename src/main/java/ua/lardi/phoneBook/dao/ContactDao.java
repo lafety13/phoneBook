@@ -6,5 +6,5 @@ import ua.lardi.phoneBook.model.User;
 import java.util.List;
 
 public interface ContactDao extends GenericDao<Contact> {
-    List<Contact> findAllContactsByUser(User user);
+    List<Contact> findAllContactsByUser(User user) throws PersistenceException;;
 }
