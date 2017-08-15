@@ -1,4 +1,3 @@
-
 Json storage is a default so you can not to load property file.
 
 For running app with MySql you have to load property file with next settings:<br>
@@ -6,11 +5,12 @@ profile=mysql<br>
 username=yourUsername<br>
 password=yourPassword<br>
 
-Also you can load property file for json storage. Use this settings.<br>
+Also you can load property file for json storage. Use these settings.<br>
 profile=default<br>
 jsonpath=yourPath<br>
 
 
+<b>SQL:</b>
 
 DROP SCHEMA IF EXISTS `phonebook`;<br>
 
