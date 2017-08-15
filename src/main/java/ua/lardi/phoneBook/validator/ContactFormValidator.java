@@ -1,12 +1,10 @@
 package ua.lardi.phoneBook.validator;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import ua.lardi.phoneBook.model.Contact;
-import ua.lardi.phoneBook.service.ContactService;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,7 +13,6 @@ import java.util.regex.Pattern;
 public class ContactFormValidator implements Validator {
     private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     private static final String MOBILE_PATTERN = "^\\+?38\\(?0\\d{2}\\)?\\d{3}-?\\d{2}-?\\d{2}$";
-    private ContactService contactService;
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -65,8 +62,4 @@ public class ContactFormValidator implements Validator {
         return m.matches();
     }
 
-    @Autowired
-    public void setContactService(ContactService contactService) {
-        this.contactService = contactService;
-    }
 }

@@ -1,0 +1,1 @@
+#sudo java -jar -Dlardi.conf=/home/vadim/IdeaProjects/phoneBook/file.properties target/phonebook-1.0-SNAPSHOT.war

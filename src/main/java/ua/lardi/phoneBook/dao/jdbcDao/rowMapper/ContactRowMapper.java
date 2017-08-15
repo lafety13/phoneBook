@@ -1,4 +1,4 @@
-package ua.lardi.phoneBook.dao.jdbcDao.mapper;
+package ua.lardi.phoneBook.dao.jdbcDao.rowMapper;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

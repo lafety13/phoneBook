@@ -5,7 +5,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.core.env.AbstractEnvironment;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -48,7 +47,9 @@ public class WebApplication {
         //setting spring profile from properties
         String profile = properties.getProperty("profile");
         if (profile != null) {
-            System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, profile);
+            //System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, profile);
+            System.setProperty("spring.profiles.default", profile);
+
             if (profile.equals("mysql")) {
                 System.setProperty("GENERATED_KEY_NAME", "GENERATED_KEY");
             }

@@ -1,4 +1,4 @@
-package ua.lardi.phoneBook.dao.jdbcDao.mapper;
+package ua.lardi.phoneBook.dao.jdbcDao.rowMapper;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
