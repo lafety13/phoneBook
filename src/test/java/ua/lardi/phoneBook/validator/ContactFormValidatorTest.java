@@ -60,14 +60,14 @@ public class ContactFormValidatorTest {
     }
 
     @Test
-    public void successfulVerifyUser() throws Exception {
+    public void successfulVerifyContact() throws Exception {
         error = new BeanPropertyBindingResult(contact, "contact");
         contactFormValidator.validate(contact, error);
         assertFalse(error.hasErrors());
     }
 
     @Test
-    public void badUser() throws Exception {
+    public void badContact() throws Exception {
         error = new BeanPropertyBindingResult(badContact, "badContact");
         contactFormValidator.validate(badContact, error);
         assertTrue(error.hasErrors());

@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Registration</title>
+    <title>Sign Up</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
@@ -43,6 +43,10 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-right" id="navbar">
+            <ul class="nav navbar-nav">
+                <li><a href="<c:url value="/signin"/>">Sign In</a></li>
+                <li><a href="<c:url value="/home"/>">Home</a></li>
+            </ul>
         </div>
 
         <!-- /.navbar-collapse -->

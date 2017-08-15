@@ -12,13 +12,13 @@ import javax.sql.DataSource;
 public class DataConfig {
 
   @Bean
-  @Profile("default")
+  @Profile("mysql")
   public DataSource dataSource() {
     BasicDataSource dataSource = new BasicDataSource();
     dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-    dataSource.setUrl("jdbc:mysql://localhost:3306/phonebook");
-    dataSource.setUsername("root");
-    dataSource.setPassword("");
+    dataSource.setUrl(System.getProperty("url"));
+    dataSource.setUsername(System.getProperty("username"));
+    dataSource.setPassword(System.getProperty("password"));
     dataSource.setInitialSize(10);
     dataSource.setMaxTotal(70);
     dataSource.setMaxIdle(30);
@@ -26,7 +26,7 @@ public class DataConfig {
   }
 
   @Bean
-  @Profile("mysql")
+  @Profile("default")
   public DataSource emptyDataSource() {
     return new BasicDataSource();
   }

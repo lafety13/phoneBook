@@ -4,14 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import ua.lardi.phoneBook.dao.JacksonDao.JsonPhoneBookModel;
+import ua.lardi.phoneBook.dao.jacksonDao.JsonPhoneBookModel;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
 @Configuration
-@Profile("mysql")
+@Profile("default")
 public class JacksonDaoConfig {
 
     @Bean

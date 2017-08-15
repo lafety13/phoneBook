@@ -24,7 +24,10 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-right" id="navbar">
-
+            <ul class="nav navbar-nav">
+                <li><a href="<c:url value="/registration"/>">Sign Up</a></li>
+                <li><a href="<c:url value="/home"/>">Home</a></li>
+            </ul>
         </div>
 
         <!-- /.navbar-collapse -->
@@ -34,6 +37,7 @@
 <hr style="margin-bottom: 150px">
 
 <div class="container">
+
     <div class="row">
         <div class="col-sm-4 autowindow">
             <form class="form-horizontal" id="signin" action="/j_spring_security_check" method="post">

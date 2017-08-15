@@ -1,7 +1,7 @@
 package ua.lardi.phoneBook.model;
 
 
-import org.springframework.validation.annotation.Validated;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,31 +9,14 @@ import java.util.List;
 /**
  * @author Vadim Kozak
  */
-@Validated
 public class User implements Serializable {
-    private Long id;
+    private long id;
     private String login;
     private String password;
+    @JsonIgnore
     private String confirmPassword;
     private String name;
     private List<Contact> contacts;
-
-    public User() {
-    }
-
-    public User(long id, String login, String password,
-                String confirmPassword, String name, List<Contact> contacts) {
-        this.id = id;
-        this.login = login;
-        this.password = password;
-        this.confirmPassword = confirmPassword;
-        this.name = name;
-        this.contacts = contacts;
-    }
-
-    public boolean isNew() {
-        return (this.id == null);
-    }
 
     public Long getId() {
         return id;

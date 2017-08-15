@@ -3,25 +3,29 @@ package ua.lardi.phoneBook.controller;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
 import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.stubbing.Answer;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
+import ua.lardi.phoneBook.TestUtils;
+import ua.lardi.phoneBook.dao.ContactDao;
+import ua.lardi.phoneBook.dao.PersistenceException;
 import ua.lardi.phoneBook.model.Contact;
-import ua.lardi.phoneBook.model.User;
 import ua.lardi.phoneBook.service.ContactService;
+import ua.lardi.phoneBook.service.ContactServiceImpl;
 import ua.lardi.phoneBook.service.UserService;
-import ua.lardi.phoneBook.validator.ContactFormValidator;
 
 import java.nio.charset.Charset;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -39,36 +43,28 @@ public class ContactControllerTest {
     private static final String CONTACT_EMAIL = "testemail@domain.com";
     //user fields
     private static final String USER_LOGIN = "testlogin";
-    private static final String USER_NAME = "testname";
-    private static final String USER_PASSWORD = "testpassword";
-
-    private static final String VIEW_RESOLVER_PREFIX = "/WEB-INF/views/";
-    private static final String VIEW_RESOLVER_SUFFIX = ".jsp";
-
     private Contact contact;
-    private User user;
     private Principal principal;
-
     private MockMvc mockMvc;
-
+    private ContactServiceImpl service;
+    private ContactDao repositoryMock;
     @Mock
     private ContactService contactServiceMock;
     @Mock
     private UserService userServiceMock;
-    @Mock
-    private ContactFormValidator contactFormValidatorMock;
 
     @Before
     public void setUp() throws Exception {
-        Mockito.reset(userServiceMock, contactServiceMock, contactFormValidatorMock);
+        repositoryMock = mock(ContactDao.class);
+        service = new ContactServiceImpl();
+        service.setContactDao(repositoryMock);
 
         ContactController contactController = new ContactController();
         contactController.setContactService(contactServiceMock);
         contactController.setUserService(userServiceMock);
-        contactController.setContactFormValidator(contactFormValidatorMock);
 
         mockMvc = MockMvcBuilders.standaloneSetup(contactController)
-                .setViewResolvers(viewResolver())
+                .setViewResolvers(TestUtils.viewResolver())
                 .build();        contact = new Contact();
 
         contact.setId(CONTACT_ID);
@@ -80,23 +76,24 @@ public class ContactControllerTest {
         contact.setAddress(CONTACT_ADDRESS);
         contact.setEmail(CONTACT_EMAIL);
 
-        user = new User();
-        user.setName(USER_NAME);
-        user.setLogin(USER_LOGIN);
-        user.setPassword(USER_PASSWORD);
         principal = () -> USER_LOGIN;
     }
 
     @Test
-    public void add_NewTodoEntry_ShouldAddTodoEntryAndRenderViewTodoEntryView() throws Exception {
-
-
-
-
+    public void add_NewContactEntry_ShouldAddContactEntryAndRenderViewContactEntryView() throws Exception {
+        doAnswer(new Answer<Object>() {
+            @Override
+            public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
+                Object[] args = invocationOnMock.getArguments();
+                Contact toBeSaved = (Contact) args[0];
+                return null;
+            }
+        }).when(contactServiceMock).save(Matchers.any(Contact.class));
+        contactServiceMock.save(contact);
     }
 
     @Test
-    public void getContactTest() throws Exception {
+    public void get_NContactEntry_ShouldGetContactEntryAndRenderViewContactEntryView() throws Exception {
         when(contactServiceMock.findById(CONTACT_ID)).thenReturn(contact);
         mockMvc.perform(get("/contact/{id}", CONTACT_ID))
                 .andExpect(status().isOk())
@@ -115,25 +112,19 @@ public class ContactControllerTest {
 
         verify(contactServiceMock, times(1)).findById(1L);
         verifyNoMoreInteractions(contactServiceMock);
-
     }
+
     @Test
-    public void deleteById_ProductEntryFound_ShouldDeleteTodoEntryAndRenderProductListView() throws Exception {
-        mockMvc.perform(get("/delete/{id}", CONTACT_ID))
-                .andExpect(status().isMovedTemporarily())
-                .andExpect(view().name("redirect:/home"));
+    public void findAll_ShouldReturnListOfContactEntries() throws PersistenceException {
+        List<Contact> models = new ArrayList<>();
+        models.add(contact);
 
-        verify(contactServiceMock, times(1)).delete(CONTACT_ID);
-        verifyNoMoreInteractions(contactServiceMock);
-    }
+        when(repositoryMock.findAll()).thenReturn(models);
+        List<Contact> actual = service.findAll();
 
-    private ViewResolver viewResolver() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        verify(repositoryMock, times(1)).findAll();
+        verifyNoMoreInteractions(repositoryMock);
 
-        viewResolver.setViewClass(JstlView.class);
-        viewResolver.setPrefix(VIEW_RESOLVER_PREFIX);
-        viewResolver.setSuffix(VIEW_RESOLVER_SUFFIX);
-
-        return viewResolver;
+        assertThat(actual, is(models));
     }
 }

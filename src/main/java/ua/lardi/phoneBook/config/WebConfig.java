@@ -38,48 +38,15 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         configurer.enable();
     }
 
-//    @Bean
-//    public MessageSource messageSource() {
-//        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-//        messageSource.setBasename("classpath:messages");
-//        messageSource.setDefaultEncoding("UTF-8");
-//        return messageSource;
-//    }
-
     @Bean
     public Validator validator() {
         return new UserFormValidator();
     }
+
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:validation");
         return messageSource;
     }
-//    @Bean
-//    public TemplateResolver templateResolver() {
-//        ServletContextTemplateResolver resolver = new ServletContextTemplateResolver();
-//        resolver.setPrefix("/WEB-INF/views/");
-//        resolver.setSuffix(".html");
-//        resolver.setTemplateMode("HTML5");
-//
-//        return resolver;
-//    }
-//
-//    @Bean
-//    public SpringTemplateEngine templateEngine() {
-//        SpringTemplateEngine engine = new SpringTemplateEngine();
-//        engine.setTemplateResolver(templateResolver());
-//        engine.setMessageSource(messageSource());
-//
-//        return engine;
-//    }
-//
-//    @Bean
-//    public ViewResolver viewResolver() {
-//        ThymeleafViewResolver resolver = new ThymeleafViewResolver();
-//        resolver.setTemplateEngine(templateEngine());
-//        resolver.setOrder(1);
-//        return resolver;
-//    }
 }

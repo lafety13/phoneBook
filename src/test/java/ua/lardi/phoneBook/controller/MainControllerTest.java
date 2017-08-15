@@ -9,9 +9,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
+import ua.lardi.phoneBook.TestUtils;
 import ua.lardi.phoneBook.model.Contact;
 import ua.lardi.phoneBook.model.User;
 import ua.lardi.phoneBook.service.ContactService;
@@ -40,19 +38,12 @@ public class MainControllerTest {
     private static final String USER_LOGIN = "testlogin";
     private static final String USER_NAME = "testname";
     private static final String USER_PASSWORD = "testpassword";
-
-    private static final String VIEW_RESOLVER_PREFIX = "/WEB-INF/views/";
-    private static final String VIEW_RESOLVER_SUFFIX = ".jsp";
-
     private List<Contact> contacts;
     private User user;
     private Principal principal;
-
     private MockMvc mockMvc;
-
     @Mock
     private UserService userServiceMock;
-
     @Mock
     private ContactService contactServiceMock;
 
@@ -64,9 +55,8 @@ public class MainControllerTest {
         mainController.setContactService(contactServiceMock);
 
         mockMvc = MockMvcBuilders.standaloneSetup(mainController)
-                .setViewResolvers(viewResolver())
+                .setViewResolvers(TestUtils.viewResolver())
                 .build();
-
 
         contacts = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
@@ -80,7 +70,6 @@ public class MainControllerTest {
             contact.setEmail(i + CONTACT_EMAIL);
             contacts.add(contact);
         }
-
         user = new User();
         user.setName(USER_NAME);
         user.setLogin(USER_LOGIN);
@@ -90,7 +79,7 @@ public class MainControllerTest {
     }
 
     @Test
-    public void home() throws Exception {
+    public void shouldRenderViewHomePage() throws Exception {
         when(userServiceMock.findUserByLogin(USER_LOGIN)).thenReturn(user);
         when(contactServiceMock.findAllContactsByUser(user)).thenReturn(contacts);
 
@@ -104,15 +93,5 @@ public class MainControllerTest {
 
         verify(userServiceMock, times(1)).findUserByLogin(USER_LOGIN);
         verify(contactServiceMock, times(1)).findAllContactsByUser(user);
-    }
-
-    private ViewResolver viewResolver() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-
-        viewResolver.setViewClass(JstlView.class);
-        viewResolver.setPrefix(VIEW_RESOLVER_PREFIX);
-        viewResolver.setSuffix(VIEW_RESOLVER_SUFFIX);
-
-        return viewResolver;
     }
 }

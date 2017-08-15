@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface GenericDao<T> {
 
-    void save(T object) throws PersistenceException;
+    T save(T object) throws PersistenceException;
 
     T findById(long id) throws PersistenceException;;
 

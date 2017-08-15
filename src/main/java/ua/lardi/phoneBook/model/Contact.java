@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author Vadim Kozak
  */
 public class Contact implements Serializable {
-    private Long id;
+    private long id;
     private String lastName;
     private String firstName;
     private String middleName;
@@ -18,26 +18,6 @@ public class Contact implements Serializable {
     private String email;
     @JsonIgnore
     private User user;
-
-    public Contact() {
-    }
-
-    public Contact(Long id, String lastName, String firstName, String middleName,
-                   String mobilePhone, String homePhone, String address, String email, User user) {
-        this.id = id;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.mobilePhone = mobilePhone;
-        this.homePhone = homePhone;
-        this.address = address;
-        this.email = email;
-        this.user = user;
-    }
-
-    public boolean isNew() {
-        return (this.id == null);
-    }
 
     public Long getId() {
         return id;

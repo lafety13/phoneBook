@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) throws PersistenceException {
-        if (user.isNew()) {
+        if (user.getId() == 0) {
             user.setPassword(shaPasswordEncoder.encodePassword(user.getPassword(), null));
             userDao.save(user);
         } else {

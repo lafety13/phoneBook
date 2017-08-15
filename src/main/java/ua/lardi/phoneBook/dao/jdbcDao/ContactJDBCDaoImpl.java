@@ -19,18 +19,18 @@ import java.util.List;
 
 
 @Repository
-@Profile("default")
+@Profile("mysql")
 public class ContactJDBCDaoImpl extends AbstractJDBCDao implements ContactDao {
     private RowMapper<Contact> contactRowMapper;
 
     @Override
-    public void save(Contact object) throws PersistenceException {
+    public Contact save(Contact contact) throws PersistenceException {
         KeyHolder holder = new GeneratedKeyHolder();
         final String sql = "INSERT INTO contact (lastname, firstname, middlename, mobilephone, " +
                 "homephone, address, email, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        getJdbcTemplate().update(connection -> makeBasePrepareStatment(sql, object, connection), holder);
+        getJdbcTemplate().update(connection -> makeBasePrepareStatment(sql, contact, connection), holder);
 
-        //return findById(parseLongFromHolder(holder));
+        return findById(parseLongFromHolder(holder));
     }
 
     @Override
@@ -40,12 +40,12 @@ public class ContactJDBCDaoImpl extends AbstractJDBCDao implements ContactDao {
     }
 
     @Override
-    public void update(Contact object) throws PersistenceException {
+    public void update(Contact contact) throws PersistenceException {
         final String query = "UPDATE contact SET lastname = ?, firstname = ?, middlename = ?, " +
                 "mobilephone = ?, homephone = ?, address = ?, email = ?, user_id = ? WHERE id = ?";
         getJdbcTemplate().update(connection -> {
-            PreparedStatement statement = makeBasePrepareStatment(query, object, connection);
-            statement.setLong(9, object.getId());
+            PreparedStatement statement = makeBasePrepareStatment(query, contact, connection);
+            statement.setLong(9, contact.getId());
             return statement;
         });
     }

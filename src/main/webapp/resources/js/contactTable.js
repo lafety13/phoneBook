@@ -53,7 +53,7 @@ $(document).ready(function () {
         $('#homePhone').val("");
         $('#address').val("");
         $('#email').val("");
-        $('#id').val("");
+        $('#id').val(0);
         $('#formName').html('Add');
         $('#deletecontactbutton').css({'display': 'none'});
     });

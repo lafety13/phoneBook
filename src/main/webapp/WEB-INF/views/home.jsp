@@ -4,7 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <html>
 <head>
-    <title>Контакты</title>
+    <title>Contacts</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <script src="../../resources/js/jquery-2.2.3.min.js" type="text/javascript"></script>
@@ -29,11 +29,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><c:out value="${username}"/></a>
+            <a class="navbar-brand" href="${}">Username: <c:out value="${username}"/></a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-right" id="navbar">
             <ul class="nav navbar-nav">
+                <li><a href="<c:url value="/registration"/>"  >Sign Up</a></li>
+                <li><a href="<c:url value="/signin"/>"  >Sign In</a></li>
                 <li> <a href="/logout">Sign out</a></li>
             </ul>
         </div>
@@ -126,7 +128,7 @@
                                    value="Save">
                         </div>
                         <div class="col-sm-6">
-                            <a class="btn btn-danger col-sm-12" style="display: none" id="deletecontactbutton">Delete</a>
+                            <a class="btn btn-primary col-sm-12" style="display: none" id="deletecontactbutton">Delete</a>
                         </div>
                     </div>
                 </form:form>

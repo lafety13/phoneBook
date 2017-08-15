@@ -33,8 +33,10 @@ public class MainController {
         ModelAndView modelAndView = new ModelAndView("home");
         try {
             User currentUser = userService.findUserByLogin(principal.getName());
-            List<Contact> userContacts = contactService.findAllContactsByUser(currentUser);
-            modelAndView.addObject("contacts", userContacts);
+            if (currentUser != null) {
+                List<Contact> userContacts = contactService.findAllContactsByUser(currentUser);
+                modelAndView.addObject("contacts", userContacts);
+            }
             modelAndView.addObject("username", currentUser.getName());
             if (!model.containsAttribute("contactForm")) {
                 modelAndView.addObject("contactForm", new Contact());

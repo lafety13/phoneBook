@@ -18,8 +18,6 @@ import java.util.regex.Pattern;
 public class UserFormValidator implements Validator {
 	private static final Logger LOGGER = LogManager.getLogger(UserFormValidator.class);
 	private static final String LOGIN_PATTERN = "^[A-Za-z0-9]{3,}$";
-
-	@Autowired
 	private UserService userService;
 
 	@Override
@@ -66,5 +64,10 @@ public class UserFormValidator implements Validator {
 		Pattern p = Pattern.compile(pattern);
 		Matcher m = p.matcher(value);
 		return m.matches();
+	}
+
+	@Autowired
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 }
