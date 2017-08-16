@@ -9,6 +9,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import ua.lardi.phoneBook.model.Contact;
+import ua.lardi.phoneBook.model.builders.ContactBuilder;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -38,25 +39,27 @@ public class ContactFormValidatorTest {
 
     @Before
     public void setUp() {
-        contact = new Contact();
-        contact.setId(1L);
-        contact.setLastName(CONTACT_LAST_NAME);
-        contact.setFirstName(CONTACT_FIRST_NAME);
-        contact.setMiddleName(CONTACT_MIDDLE_NAME);
-        contact.setMobilePhone(CONTACT_MOBILE_PHONE);
-        contact.setHomePhone(CONTACT_HOME_PHONE);
-        contact.setAddress(CONTACT_ADDRESS);
-        contact.setEmail(CONTACT_EMAIL);
+        contact = new ContactBuilder()
+                .setId(1L)
+                .setFirstName(CONTACT_FIRST_NAME)
+                .setLastName(CONTACT_LAST_NAME)
+                .setMiddleName(CONTACT_MIDDLE_NAME)
+                .setMobilePhone(CONTACT_MOBILE_PHONE)
+                .setHomePhone(CONTACT_HOME_PHONE)
+                .setAddress(CONTACT_ADDRESS)
+                .setEmail(CONTACT_EMAIL)
+                .build();
 
-        badContact = new Contact();
-        badContact.setId(1L);
-        badContact.setLastName(BAD_CONTACT_LAST_NAME);
-        badContact.setFirstName(BAD_CONTACT_FIRST_NAME);
-        badContact.setMiddleName(BAD_CONTACT_MIDDLE_NAME);
-        badContact.setMobilePhone(BAD_CONTACT_MOBILE_PHONE);
-        badContact.setHomePhone(CONTACT_HOME_PHONE);
-        badContact.setAddress(CONTACT_ADDRESS);
-        badContact.setEmail(BAD_CONTACT_EMAIL);
+        badContact = new ContactBuilder()
+                .setId(1L)
+                .setFirstName(BAD_CONTACT_FIRST_NAME)
+                .setLastName(BAD_CONTACT_LAST_NAME)
+                .setMiddleName(BAD_CONTACT_MIDDLE_NAME)
+                .setMobilePhone(BAD_CONTACT_MOBILE_PHONE)
+                .setHomePhone(BAD_CONTACT_MOBILE_PHONE)
+                .setAddress(CONTACT_ADDRESS)
+                .setEmail(BAD_CONTACT_EMAIL)
+                .build();
     }
 
     @Test

@@ -1,4 +1,6 @@
-package ua.lardi.phoneBook.model;
+package ua.lardi.phoneBook.model.builders;
+
+import ua.lardi.phoneBook.model.Contact;
 
 public class ContactBuilder {
     private Contact contact;

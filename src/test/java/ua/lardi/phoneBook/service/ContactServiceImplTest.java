@@ -7,7 +7,7 @@ import org.mockito.ArgumentCaptor;
 import ua.lardi.phoneBook.dao.ContactDao;
 import ua.lardi.phoneBook.dao.PersistenceException;
 import ua.lardi.phoneBook.model.Contact;
-import ua.lardi.phoneBook.model.ContactBuilder;
+import ua.lardi.phoneBook.model.builders.ContactBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,11 +35,8 @@ public class ContactServiceImplTest {
         repositoryMock = mock(ContactDao.class);
         service = new ContactServiceImpl();
         service.setContactDao(repositoryMock);
-    }
 
-    @Test
-    public void add_NewContactEntry_ShouldSaveContactEntry() throws PersistenceException {
-        Contact contact = new ContactBuilder()
+        contact = new ContactBuilder()
                 .setFirstName("name")
                 .setLastName("lastname")
                 .setMiddleName("middlename")
@@ -48,7 +45,10 @@ public class ContactServiceImplTest {
                 .setAddress("addres")
                 .setEmail("email.gmail.com")
                 .build();
+    }
 
+    @Test
+    public void add_NewContactEntry_ShouldSaveContactEntry() throws PersistenceException {
         service.save(contact);
 
         ArgumentCaptor<Contact> toDoArgument = ArgumentCaptor.forClass(Contact.class);

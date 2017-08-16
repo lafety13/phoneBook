@@ -46,7 +46,7 @@ public class ContactController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String contactForm(@ModelAttribute("contactForm") Contact contact,
+    public String save(@ModelAttribute("contactForm") Contact contact,
                                 BindingResult bindingResult,
                                 RedirectAttributes redirectAttributes,
                                 Principal principal) {
